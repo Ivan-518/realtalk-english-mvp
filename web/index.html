@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RealTalk English</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="app-sidebar">
+        <div class="brand">
+          <span class="brand-mark">RT</span>
+          <div>
+            <h1>RealTalk English</h1>
+            <p>真实场景英语陪练</p>
+          </div>
+        </div>
+
+        <nav class="scene-list" aria-label="练习场景">
+          <button class="scene-button active" data-scene="restaurant">
+            <span>餐厅点餐</span>
+            <small>礼貌点餐、修改需求、结账</small>
+          </button>
+          <button class="scene-button" data-scene="airport">
+            <span>机场出行</span>
+            <small>值机、行李、入境沟通</small>
+          </button>
+          <button class="scene-button" data-scene="hotel">
+            <span>酒店入住</span>
+            <small>入住、设施、投诉和请求</small>
+          </button>
+          <button class="scene-button" data-scene="smalltalk">
+            <span>日常寒暄</span>
+            <small>自我介绍、兴趣、周末安排</small>
+          </button>
+          <button class="scene-button" data-scene="work">
+            <span>工作沟通</span>
+            <small>确认需求、汇报进度、提出问题</small>
+          </button>
+        </nav>
+
+        <section class="sidebar-card">
+          <div class="panel-heading">
+            <p class="eyebrow">Learning Signal</p>
+            <h2>学习进度</h2>
+          </div>
+          <div id="progressPanel" class="progress-panel">
+            <p class="empty-state">完成一轮练习后，会统计常见问题并推荐下一场景。</p>
+          </div>
+        </section>
+
+        <section class="sidebar-card">
+          <div class="panel-heading">
+            <p class="eyebrow">Daily Review</p>
+            <h2>每日复习</h2>
+          </div>
+          <div id="dailyReviewList" class="mini-list">
+            <p class="empty-state">完成练习或收藏句子后，会自动生成复习清单。</p>
+          </div>
+        </section>
+      </aside>
+
+      <main class="workspace">
+        <header class="workspace-top">
+          <div>
+            <p class="eyebrow">Training Desk</p>
+            <h2 id="sceneTitle">餐厅点餐</h2>
+          </div>
+          <div class="turn-meter" aria-label="练习轮次">
+            <strong id="turnCounter">0</strong>
+            <span>/5</span>
+          </div>
+          <div class="workspace-actions">
+            <button id="restartButton" class="secondary-button" type="button">重新开始</button>
+            <button id="exportButton" class="primary-button" type="button">导出复盘</button>
+          </div>
+        </header>
+
+        <section class="practice-grid">
+          <section class="conversation-panel" aria-label="对话练习">
+            <div id="scenarioPanel" class="scenario-panel" aria-live="polite">
+              <strong>本轮任务生成中</strong>
+              <span>系统会根据真实场景生成一个具体练习目标。</span>
+            </div>
+
+            <div id="chatLog" class="chat-log" aria-live="polite"></div>
+
+            <form id="replyForm" class="reply-form">
+              <label for="replyInput">用英文回复</label>
+              <div class="reply-dock">
+                <textarea
+                  id="replyInput"
+                  name="reply"
+                  rows="3"
+                  placeholder="例如：I'd like a table for two, please."
+                  required
+                ></textarea>
+                <button class="primary-button send-button" type="submit">发送</button>
+              </div>
+              <div class="helper-row">
+                <button id="hintButton" class="ghost-button" type="button">给我提示</button>
+                <span id="hintText">提示会根据当前场景生成。</span>
+              </div>
+            </form>
+          </section>
+
+          <aside class="coach-column" aria-label="纠错与复盘">
+            <section class="coach-card">
+              <div class="panel-heading">
+                <p class="eyebrow">Coach Feedback</p>
+                <h3>表达反馈</h3>
+              </div>
+              <div id="feedbackPanel" class="feedback-panel">
+                <p class="empty-state">发送第一句英文后，这里会显示可理解程度、更自然表达和原因。</p>
+              </div>
+            </section>
+
+            <section class="coach-card">
+              <div class="panel-heading inline">
+                <div>
+                  <p class="eyebrow">Session Review</p>
+                  <h3>本次复盘</h3>
+                </div>
+                <button id="saveFavoriteButton" class="ghost-button" type="button">收藏推荐句</button>
+              </div>
+              <div id="reviewPanel" class="review-content">
+                <p class="empty-state">完成练习后会生成复盘。你也可以随时收藏最近一次推荐表达。</p>
+              </div>
+            </section>
+
+            <section class="coach-card">
+              <div class="panel-heading inline">
+                <div>
+                  <p class="eyebrow">Local Sessions</p>
+                  <h3>本地记录</h3>
+                </div>
+                <button id="clearHistoryButton" class="text-button" type="button">清空</button>
+              </div>
+              <p id="historySummary">暂无练习记录</p>
+              <div id="historyList" class="mini-list"></div>
+            </section>
+
+            <section class="coach-card">
+              <div class="panel-heading">
+                <p class="eyebrow">History Detail</p>
+                <h3>历史详情</h3>
+              </div>
+              <div id="historyDetailPanel" class="review-content">
+                <p class="empty-state">完成一次练习后，这里会展示最近一次完整对话和纠错。</p>
+              </div>
+            </section>
+
+            <section class="coach-card">
+              <div class="panel-heading">
+                <p class="eyebrow">Saved Lines</p>
+                <h3>收藏句</h3>
+              </div>
+              <div id="favoriteList" class="review-content">
+                <p class="empty-state">收藏推荐表达后会出现在这里。</p>
+              </div>
+            </section>
+          </aside>
+        </section>
+      </main>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="./app.js"></script>
+  </body>
+</html>

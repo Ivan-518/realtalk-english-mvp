@@ -1,0 +1,22 @@
+{
+  "name": "realtalk-english-mvp",
+  "version": "1.0.0",
+  "description": "一个面向真实生活和工作场景的英语文本陪练 MVP。当前版本采用 `web/` + `server/` 双目录结构：前端负责练习体验，后端负责调用 OpenAI/兼容网关生成动态任务卡、结构化纠错反馈和追问。",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "uv run --python D:\\python\\py311 pytest",
+    "qa:mobile": "node scripts/mobile-qa.js",
+    "smoke": "node scripts/smoke-test.js",
+    "preflight": "node scripts/preflight.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "playwright": "^1.60.0"
+  }
+}
