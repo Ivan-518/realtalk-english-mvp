@@ -26,6 +26,7 @@ RealTalk English 是一个面向真实生活和工作场景的英语陪练 MVP�
 | `server/openai_client.py` | OpenAI/兼容网关调用、结构化解析和兜底适配 |
 | `server/fallback.py` | 本地规则版反馈、错误标签和复习建议 |
 | `server/requirements.txt` | Python 部署依赖 |
+| `.python-version` / `runtime.txt` | 固定 Render/Railway 使用 Python 3.11，避免 Python 3.14 下构建 `pydantic-core` |
 | `scripts/mobile-qa.js` | Playwright 移动端截图和布局断言 |
 | `render.yaml` | Render Blueprint 部署配置 |
 | `Procfile` | Railway/Heroku 风格启动入口 |
@@ -78,6 +79,8 @@ http://127.0.0.1:8000/api/health
 | Health Check Path | `/api/health` |
 | Required Env | `OPENAI_API_KEY` |
 | Optional Env | `OPENAI_BASE_URL`, `OPENAI_MODEL` |
+
+如果 Render 日志显示正在使用 `python3.14`，说明运行时版本没有被识别。确认仓库根目录存在 `.python-version`，内容为 `3.11.9`，并重新部署。Python 3.14 下 `pydantic-core` 可能退回 Rust 编译并导致构建失败。
 
 ### Railway / Heroku 风格平台
 
